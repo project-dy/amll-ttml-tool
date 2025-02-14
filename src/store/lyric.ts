@@ -501,5 +501,75 @@ export const useEditingLyric = defineStore("editing-lyric", {
 			progress.finishProgress(p);
 			this.record();
 		},
+		splitJapanese() {
+			const rawLines: LyricLineWithState[] = this.lyrics.map((line) => ({
+				...toRaw(line),
+				words: toRaw(line.words).map((w) => ({ ...w })),
+			}));
+			const results: LyricLineWithState[] = [];
+			const latinReg = /^[A-z\u00C0-\u00ff'.,-\/#!$%^&*;:{}=\-_`~()]+$/; // A-z, À-ÿ and special characters
+			const specialJapaneseReg =
+				/[ぁぃぅぇぉゕゖっゃゅょゎ]+|[ァィゥェォヵㇰヶㇱㇲッㇳㇴㇵㇶㇷㇷ゚ㇸㇹㇺャュョㇻㇼㇽㇾㇿヮー]+|[んン、。？]+/u; // katakana and sutegana and some hankaku special characters
+
+			for (const line of rawLines) {
+				const chars = line.words.flatMap((w) => w.word.split(""));
+				console.log(chars);
+				const wordsResult: LyricWord[] = [];
+				let tmpWord: LyricWord = {
+					word: "",
+					startTime: 0,
+					endTime: 0,
+				};
+				for (const c of chars) {
+					if (/^\s+$/.test(c)) {
+						if (tmpWord.word.trim().length > 0) {
+							wordsResult.push(tmpWord);
+						}
+						tmpWord = {
+							word: " ",
+							startTime: 0,
+							endTime: 0,
+						};
+					} else if (latinReg.test(c)) {
+						if (latinReg.test(tmpWord.word)) {
+							tmpWord.word += c;
+						} else {
+							if (tmpWord.word.length > 0) {
+								wordsResult.push(tmpWord);
+							}
+							tmpWord = {
+								word: c,
+								startTime: 0,
+								endTime: 0,
+							};
+						}
+					} else if (specialJapaneseReg.test(c)) {
+						tmpWord.word += c;
+					} else {
+						if (tmpWord.word.length > 0) {
+							wordsResult.push(tmpWord);
+						}
+						tmpWord = {
+							word: c,
+							startTime: 0,
+							endTime: 0,
+						};
+					}
+				}
+				if (tmpWord.word.length > 0) {
+					wordsResult.push(tmpWord);
+				}
+				results.push({
+					...line,
+					words: wordsResult,
+					selected: false,
+				});
+			}
+
+			console.log(results);
+
+			this.lyrics = results;
+			this.record();
+		},
 	},
 });

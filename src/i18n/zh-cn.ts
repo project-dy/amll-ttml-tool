@@ -59,6 +59,7 @@ export const zhCN = {
 			showMachineRomanji: "显示日语参考罗马字注音（实验性）",
 			splitWordBySimpleMethod: "使用简单方式对歌词行分词",
 			splitWordByJieba: "使用 JieBa 对歌词行分词",
+			splitWordByJapaneseMethod: "拆分日语歌词 ", // used deepl translation
 			view: "查看",
 			tool: "工具",
 		},

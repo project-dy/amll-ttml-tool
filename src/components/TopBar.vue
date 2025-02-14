@@ -10,24 +10,47 @@
   -->
 
 <template>
-	<NLayoutHeader bordered style="padding: 4px; display: flex; align-items: center">
+	<NLayoutHeader
+		bordered
+		style="padding: 4px; display: flex; align-items: center"
+	>
 		<div class="menu-full">
-			<NDropdown :options="MENU.file" placement="bottom-start" trigger="click" @select="onSelectMenu">
+			<NDropdown
+				:options="MENU.file"
+				placement="bottom-start"
+				trigger="click"
+				@select="onSelectMenu"
+			>
 				<NButton quaternary>
 					<i18n-t keypath="topBar.menu.file" />
 				</NButton>
 			</NDropdown>
-			<NDropdown :options="MENU.edit" placement="bottom-start" trigger="click" @select="onSelectMenu">
+			<NDropdown
+				:options="MENU.edit"
+				placement="bottom-start"
+				trigger="click"
+				@select="onSelectMenu"
+			>
 				<NButton quaternary>
 					<i18n-t keypath="topBar.menu.edit" />
 				</NButton>
 			</NDropdown>
-			<NDropdown :options="MENU.view" placement="bottom-start" trigger="click" @select="onSelectMenu">
+			<NDropdown
+				:options="MENU.view"
+				placement="bottom-start"
+				trigger="click"
+				@select="onSelectMenu"
+			>
 				<NButton quaternary>
 					<i18n-t keypath="topBar.menu.view" />
 				</NButton>
 			</NDropdown>
-			<NDropdown :options="MENU.tool" placement="bottom-start" trigger="click" @select="onSelectMenu">
+			<NDropdown
+				:options="MENU.tool"
+				placement="bottom-start"
+				trigger="click"
+				@select="onSelectMenu"
+			>
 				<NButton quaternary>
 					<i18n-t keypath="topBar.menu.tool" />
 				</NButton>
@@ -35,23 +58,32 @@
 			<NDivider vertical />
 		</div>
 		<div class="menu-slim">
-			<NDropdown :options="[{
-				label: t('topBar.menu.file'),
-				key: 'sub-file',
-				children: MENU.file,
-			}, {
-				label: t('topBar.menu.edit'),
-				key: 'sub-edit',
-				children: MENU.edit,
-			}, {
-				label: t('topBar.menu.view'),
-				key: 'sub-view',
-				children: MENU.view,
-			}, {
-				label: t('topBar.menu.tool'),
-				key: 'sub-tool',
-				children: MENU.tool,
-			}]" trigger="click" @select="onSelectMenu">
+			<NDropdown
+				:options="[
+					{
+						label: t('topBar.menu.file'),
+						key: 'sub-file',
+						children: MENU.file,
+					},
+					{
+						label: t('topBar.menu.edit'),
+						key: 'sub-edit',
+						children: MENU.edit,
+					},
+					{
+						label: t('topBar.menu.view'),
+						key: 'sub-view',
+						children: MENU.view,
+					},
+					{
+						label: t('topBar.menu.tool'),
+						key: 'sub-tool',
+						children: MENU.tool,
+					},
+				]"
+				trigger="click"
+				@select="onSelectMenu"
+			>
 				<NButton circle secondary>
 					<NIcon size="24">
 						<Home24Regular />
@@ -60,26 +92,42 @@
 			</NDropdown>
 		</div>
 		<div style="display: flex; justify-content: center; gap: 8px">
-			<NButton :quaternary="edit.editMode !== 'edit'" :type="edit.editMode === 'edit' ? 'primary' : 'default'"
-				@click="edit.editMode = 'edit'">
+			<NButton
+				:quaternary="edit.editMode !== 'edit'"
+				:type="edit.editMode === 'edit' ? 'primary' : 'default'"
+				@click="edit.editMode = 'edit'"
+			>
 				<i18n-t keypath="topBar.modeBtns.edit" />
 			</NButton>
-			<NButton :quaternary="edit.editMode !== 'sync'" :type="edit.editMode === 'sync' ? 'primary' : 'default'"
-				@click="edit.editMode = 'sync'">
+			<NButton
+				:quaternary="edit.editMode !== 'sync'"
+				:type="edit.editMode === 'sync' ? 'primary' : 'default'"
+				@click="edit.editMode = 'sync'"
+			>
 				<i18n-t keypath="topBar.modeBtns.sync" />
 			</NButton>
-			<NButton :quaternary="edit.editMode !== 'amll-preview'"
+			<NButton
+				:quaternary="edit.editMode !== 'amll-preview'"
 				:type="edit.editMode === 'amll-preview' ? 'primary' : 'default'"
-				@click="edit.editMode = 'amll-preview'">
+				@click="edit.editMode = 'amll-preview'"
+			>
 				<i18n-t keypath="topBar.modeBtns.preview" />
 			</NButton>
 		</div>
-		<div class="app-name" style="flex: 1; padding-right: 1em; text-align: right">
+		<div
+			class="app-name"
+			style="flex: 1; padding-right: 1em; text-align: right"
+		>
 			<i18n-t keypath="topBar.appName" />
 		</div>
 	</NLayoutHeader>
-	<NModal v-model:show="aboutModalOpened" :title="t('aboutModal.appName')" preset="card" style="max-width: 600px;"
-		transform-origin="center">
+	<NModal
+		v-model:show="aboutModalOpened"
+		:title="t('aboutModal.appName')"
+		preset="card"
+		style="max-width: 600px"
+		transform-origin="center"
+	>
 		<NSpace vertical>
 			<div>
 				<i18n-t keypath="aboutModal.description" />
@@ -88,7 +136,12 @@
 				<NButton @click="goToRepo">
 					<i18n-t keypath="aboutModal.githubBtn" />
 				</NButton>
-				<NButton @click="settings.showingTutorial = true; aboutModalOpened = false;">
+				<NButton
+					@click="
+						settings.showingTutorial = true;
+						aboutModalOpened = false;
+					"
+				>
 					<i18n-t keypath="aboutModal.tutorialBtn" />
 				</NButton>
 			</NSpace>
@@ -330,6 +383,10 @@ const MENU = reactive({
 			key: "split-words-simple",
 		},
 		{ label: t("topBar.menu.splitWordByJieba"), key: "split-words-jieba" },
+		{
+			label: t("topBar.menu.splitWordByJapaneseMethod"),
+			key: "split-words-japanese",
+		},
 		// { label: '简繁转换', key: 'trad-to-simp' },
 		// { label: '生成日语罗马字音译歌词', key: 'gen-jpn-romaji' },
 		// { label: '生成粤语音译歌词', key: 'gen-cat' },
@@ -668,6 +725,10 @@ function onSelectMenu(key: string) {
 			lyric.splitLineBySimpleMethod();
 			break;
 		}
+		case "split-words-japanese": {
+			lyric.splitJapanese();
+			break;
+		}
 		case "toggle-bg": {
 			lyric.toggleSelectedLineBackground();
 			break;
@@ -689,7 +750,7 @@ function onSelectMenu(key: string) {
 
 <style lang="css" scoped>
 .menu-full {
-	flex: 1
+	flex: 1;
 }
 
 .menu-slim {
