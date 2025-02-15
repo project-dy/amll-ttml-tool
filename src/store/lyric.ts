@@ -509,7 +509,7 @@ export const useEditingLyric = defineStore("editing-lyric", {
 			const results: LyricLineWithState[] = [];
 			const latinReg = /^[A-z\u00C0-\u00ff'.,-\/#!$%^&*;:{}=\-_`~()]+$/; // A-z, À-ÿ and special characters
 			const specialJapaneseReg =
-				/[ぁぃぅぇぉゕゖっゃゅょゎ]+|[ァィゥェォヵㇰヶㇱㇲッㇳㇴㇵㇶㇷㇷ゚ㇸㇹㇺャュョㇻㇼㇽㇾㇿヮー]+|[んン、。？]+/u; // katakana and sutegana and some hankaku special characters
+				/[ぁぃぅぇぉゕゖっゃゅょゎ]+|[ァィゥェォヵㇰヶㇱㇲッㇳㇴㇵㇶㇷㇷ゚ㇸㇹㇺャュョㇻㇼㇽㇾㇿヮー]+|[んン’”。、￥＃！＄％＾＆＊；：｛｝「」＝＿｀〜（）]+/u; // katakana and sutegana and some hankaku special characters
 			const koreanReg = /[가-힣]+/u; // hangul
 
 			for (const line of rawLines) {
