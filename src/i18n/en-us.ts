@@ -47,7 +47,7 @@ export const enUS = {
 			showRomanLyricLines: "Show lyrics pronunciation",
 			splitWordBySimpleMethod: "Split words (simple)",
 			splitWordByJieba: "Split words (using JieBa)",
-			splitWordByJapaneseMethod: "Split words (using Japanese method)",
+			splitWordBySmartMethod: "Split words",
 			view: "View",
 			tool: "Tool",
 		},

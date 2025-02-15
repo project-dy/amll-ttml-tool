@@ -501,7 +501,7 @@ export const useEditingLyric = defineStore("editing-lyric", {
 			progress.finishProgress(p);
 			this.record();
 		},
-		splitJapanese() {
+		splitLineBySmartMethod() {
 			const rawLines: LyricLineWithState[] = this.lyrics.map((line) => ({
 				...toRaw(line),
 				words: toRaw(line.words).map((w) => ({ ...w })),
@@ -510,6 +510,7 @@ export const useEditingLyric = defineStore("editing-lyric", {
 			const latinReg = /^[A-z\u00C0-\u00ff'.,-\/#!$%^&*;:{}=\-_`~()]+$/; // A-z, À-ÿ and special characters
 			const specialJapaneseReg =
 				/[ぁぃぅぇぉゕゖっゃゅょゎ]+|[ァィゥェォヵㇰヶㇱㇲッㇳㇴㇵㇶㇷㇷ゚ㇸㇹㇺャュョㇻㇼㇽㇾㇿヮー]+|[んン、。？]+/u; // katakana and sutegana and some hankaku special characters
+			const koreanReg = /[가-힣]+/u; // hangul
 
 			for (const line of rawLines) {
 				const chars = line.words.flatMap((w) => w.word.split(""));
@@ -543,6 +544,9 @@ export const useEditingLyric = defineStore("editing-lyric", {
 								endTime: 0,
 							};
 						}
+					} else if (koreanReg.test(c)) {
+						tmpWord.word += c;
+						tmpWord.emptyBeat = tmpWord.word.length - 1;
 					} else if (specialJapaneseReg.test(c)) {
 						tmpWord.word += c;
 					} else {
@@ -559,6 +563,9 @@ export const useEditingLyric = defineStore("editing-lyric", {
 				if (tmpWord.word.length > 0) {
 					wordsResult.push(tmpWord);
 				}
+				// wordsResult.forEach((w) => {
+				// w.emptyBeat = w.word.length - 1;
+				// });
 				results.push({
 					...line,
 					words: wordsResult,

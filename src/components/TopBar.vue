@@ -384,8 +384,8 @@ const MENU = reactive({
 		},
 		{ label: t("topBar.menu.splitWordByJieba"), key: "split-words-jieba" },
 		{
-			label: t("topBar.menu.splitWordByJapaneseMethod"),
-			key: "split-words-japanese",
+			label: t("topBar.menu.splitWordBySmartMethod"),
+			key: "split-words-smart",
 		},
 		// { label: '简繁转换', key: 'trad-to-simp' },
 		// { label: '生成日语罗马字音译歌词', key: 'gen-jpn-romaji' },
@@ -434,7 +434,8 @@ function onSelectMenu(key: string) {
 		case "open": {
 			const fileDialog = document.createElement("input");
 			fileDialog.type = "file";
-			fileDialog.accept = ".ttml, application/ttml+xml, application/xml, */*";
+			fileDialog.accept =
+				".ttml, application/ttml+xml, application/xml, */*";
 			fileDialog.click();
 			fileDialog.addEventListener("input", async () => {
 				try {
@@ -725,8 +726,8 @@ function onSelectMenu(key: string) {
 			lyric.splitLineBySimpleMethod();
 			break;
 		}
-		case "split-words-japanese": {
-			lyric.splitJapanese();
+		case "split-words-smart": {
+			lyric.splitLineBySmartMethod();
 			break;
 		}
 		case "toggle-bg": {
