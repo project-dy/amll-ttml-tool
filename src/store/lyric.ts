@@ -523,11 +523,13 @@ export const useEditingLyric = defineStore("editing-lyric", {
 				};
 				for (const c of chars) {
 					if (/^\s+$/.test(c)) {
+						debugger;
 						if (tmpWord.word.trim().length > 0) {
+							tmpWord.word = tmpWord.word.trim() + " ";
 							wordsResult.push(tmpWord);
 						}
 						tmpWord = {
-							word: " ",
+							word: "",
 							startTime: 0,
 							endTime: 0,
 						};
